@@ -210,7 +210,7 @@ var constructorParamsKeys = ['maxDelayTime', 'mediaElement', 'mediaStream', 'num
 
 var setters = ['position', 'orientation'];
 
-var startAndStopNodes = ['oscillator', 'bufferSource'];
+var startAndStopNodes = ['oscillator', 'bufferSource', 'soundtouchSource'];
 
 var connect = function connect() {
   var audioNode = this.audioNode;

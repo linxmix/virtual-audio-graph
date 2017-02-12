@@ -29,4 +29,5 @@ export const setters = [
 export const startAndStopNodes = [
   'oscillator',
   'bufferSource',
+  'soundtouchSource',
 ]

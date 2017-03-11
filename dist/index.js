@@ -204,7 +204,7 @@ var connectAudioNodes = (function (virtualGraph) {
   }, Object.keys(virtualGraph));
 });
 
-var audioParamProperties = ['attack', 'delayTime', 'detune', 'frequency', 'gain', 'knee', 'pan', 'playbackRate', 'ratio', 'reduction', 'release', 'threshold', 'Q'];
+var audioParamProperties = ['attack', 'delayTime', 'detune', 'frequency', 'gain', 'tempo', 'pitch', 'knee', 'pan', 'playbackRate', 'ratio', 'reduction', 'release', 'threshold', 'Q'];
 
 var constructorParamsKeys = ['maxDelayTime', 'mediaElement', 'mediaStream', 'numberOfOutputs'];
 

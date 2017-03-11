@@ -4,6 +4,8 @@ export const audioParamProperties = [
   'detune',
   'frequency',
   'gain',
+  'tempo',
+  'pitch',
   'knee',
   'pan',
   'playbackRate',

@@ -11,6 +11,7 @@ export const equals = (a, b) => {
   const keysA = Object.keys(a)
   const keysB = Object.keys(b)
   if (keysA.length !== keysB.length) return false
+  if (keysA.length > 1000) return false
   for (let i = 0; i < keysA.length; i++) {
     const key = keysA[i]
     if (!equals(a[key], b[key])) return false

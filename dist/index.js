@@ -124,6 +124,7 @@ var equals = function equals(a, b) {
   var keysA = Object.keys(a);
   var keysB = Object.keys(b);
   if (keysA.length !== keysB.length) return false;
+  if (keysA.length > 1000) return false;
   for (var _i = 0; _i < keysA.length; _i++) {
     var key = keysA[_i];
     if (!equals(a[key], b[key])) return false;
@@ -288,7 +289,9 @@ var update = function update() {
     if (_this2.params && _this2.params[key] === param) return;
     if (audioParamProperties.indexOf(key) !== -1) {
       if (Array.isArray(param)) {
-        if (_this2.params && !equals(param, _this2.params[key], { strict: true })) {
+        if (_this2.params && equals(param, _this2.params[key], { strict: true })) {
+          return;
+        } else {
           _this2.audioNode[key].cancelScheduledValues(0);
         }
         var callMethod = function callMethod(_ref2) {

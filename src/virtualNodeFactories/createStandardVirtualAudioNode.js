@@ -1,4 +1,4 @@
-import {capitalize, equals, filter, find, forEach} from '../utils'
+import {capitalize, equals, filter, find, forEach, get, set} from '../utils'
 import {
   audioParamProperties,
   constructorParamsKeys,
@@ -64,20 +64,20 @@ const update = function (params = {}) {
         if (this.params && equals(param, this.params[key], {strict: true})) {
           return
         } else {
-          this.audioNode[key].cancelScheduledValues(0)
+          get(this.audioNode, key).cancelScheduledValues(0)
         }
-        const callMethod = ([methodName, ...args]) => this.audioNode[key][methodName](...args)
+        const callMethod = ([methodName, ...args]) => get(this.audioNode, key)[methodName](...args)
         Array.isArray(param[0]) ? forEach(callMethod, param) : callMethod(param)
         return
       }
-      this.audioNode[key].value = param
+      get(this.audioNode, key).value = param
       return
     }
     if (setters.indexOf(key) !== -1) {
       this.audioNode[`set${capitalize(key)}`](...param)
       return
     }
-    this.audioNode[key] = param
+    set(this.audioNode, key, param)
   }, Object.keys(params))
   this.params = params
   return this

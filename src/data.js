@@ -14,6 +14,8 @@ export const audioParamProperties = [
   'release',
   'threshold',
   'Q',
+  'wet.gain',
+  'filter.frequency',
 ]
 
 export const constructorParamsKeys = [

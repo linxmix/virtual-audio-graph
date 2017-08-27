@@ -161,6 +161,24 @@ var values = function values(obj) {
   }return ret;
 };
 
+var get$$1 = function get$$1(object, keys, defaultVal) {
+  keys = Array.isArray(keys) ? keys : keys.split('.');
+  object = object[keys[0]];
+  if (object && keys.length > 1) {
+    return get$$1(object, keys.slice(1), defaultVal);
+  }
+  return object === undefined ? defaultVal : object;
+};
+
+var set$$1 = function set$$1(object, keys, val) {
+  keys = Array.isArray(keys) ? keys : keys.split('.');
+  if (keys.length > 1) {
+    object[keys[0]] = object[keys[0]] || {};
+    return set$$1(object[keys[0]], keys.slice(1), val);
+  }
+  object[keys[0]] = val;
+};
+
 var connectAudioNodes = (function (virtualGraph) {
   var handleConnectionToOutput = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : function () {};
   return forEach(function (id) {
@@ -205,7 +223,7 @@ var connectAudioNodes = (function (virtualGraph) {
   }, Object.keys(virtualGraph));
 });
 
-var audioParamProperties = ['attack', 'delayTime', 'detune', 'frequency', 'gain', 'tempo', 'pitch', 'knee', 'pan', 'playbackRate', 'ratio', 'reduction', 'release', 'threshold', 'Q'];
+var audioParamProperties = ['attack', 'delayTime', 'detune', 'frequency', 'gain', 'tempo', 'pitch', 'knee', 'pan', 'playbackRate', 'ratio', 'reduction', 'release', 'threshold', 'Q', 'wet.gain', 'filter.frequency'];
 
 var constructorParamsKeys = ['maxDelayTime', 'mediaElement', 'mediaStream', 'numberOfOutputs'];
 
@@ -292,21 +310,21 @@ var update = function update() {
         if (_this2.params && equals(param, _this2.params[key], { strict: true })) {
           return;
         } else {
-          _this2.audioNode[key].cancelScheduledValues(0);
+          get$$1(_this2.audioNode, key).cancelScheduledValues(0);
         }
         var callMethod = function callMethod(_ref2) {
-          var _audioNode$key;
+          var _get;
 
           var _ref3 = toArray(_ref2),
               methodName = _ref3[0],
               args = _ref3.slice(1);
 
-          return (_audioNode$key = _this2.audioNode[key])[methodName].apply(_audioNode$key, toConsumableArray(args));
+          return (_get = get$$1(_this2.audioNode, key))[methodName].apply(_get, toConsumableArray(args));
         };
         Array.isArray(param[0]) ? forEach(callMethod, param) : callMethod(param);
         return;
       }
-      _this2.audioNode[key].value = param;
+      get$$1(_this2.audioNode, key).value = param;
       return;
     }
     if (setters.indexOf(key) !== -1) {
@@ -315,7 +333,7 @@ var update = function update() {
       (_audioNode = _this2.audioNode)['set' + capitalize(key)].apply(_audioNode, toConsumableArray(param));
       return;
     }
-    _this2.audioNode[key] = param;
+    set$$1(_this2.audioNode, key, param);
   }, Object.keys(params));
   this.params = params;
   return this;

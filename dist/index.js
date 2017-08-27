@@ -161,20 +161,20 @@ var values = function values(obj) {
   }return ret;
 };
 
-var get$$1 = function get$$1(object, keys, defaultVal) {
+var get = function get(object, keys, defaultVal) {
   keys = Array.isArray(keys) ? keys : keys.split('.');
   object = object[keys[0]];
   if (object && keys.length > 1) {
-    return get$$1(object, keys.slice(1), defaultVal);
+    return get(object, keys.slice(1), defaultVal);
   }
   return object === undefined ? defaultVal : object;
 };
 
-var set$$1 = function set$$1(object, keys, val) {
+var set = function set(object, keys, val) {
   keys = Array.isArray(keys) ? keys : keys.split('.');
   if (keys.length > 1) {
     object[keys[0]] = object[keys[0]] || {};
-    return set$$1(object[keys[0]], keys.slice(1), val);
+    return set(object[keys[0]], keys.slice(1), val);
   }
   object[keys[0]] = val;
 };
@@ -310,7 +310,7 @@ var update = function update() {
         if (_this2.params && equals(param, _this2.params[key], { strict: true })) {
           return;
         } else {
-          get$$1(_this2.audioNode, key).cancelScheduledValues(0);
+          get(_this2.audioNode, key).cancelScheduledValues(0);
         }
         var callMethod = function callMethod(_ref2) {
           var _get;
@@ -319,12 +319,12 @@ var update = function update() {
               methodName = _ref3[0],
               args = _ref3.slice(1);
 
-          return (_get = get$$1(_this2.audioNode, key))[methodName].apply(_get, toConsumableArray(args));
+          return (_get = get(_this2.audioNode, key))[methodName].apply(_get, toConsumableArray(args));
         };
         Array.isArray(param[0]) ? forEach(callMethod, param) : callMethod(param);
         return;
       }
-      get$$1(_this2.audioNode, key).value = param;
+      get(_this2.audioNode, key).value = param;
       return;
     }
     if (setters.indexOf(key) !== -1) {
@@ -333,7 +333,7 @@ var update = function update() {
       (_audioNode = _this2.audioNode)['set' + capitalize(key)].apply(_audioNode, toConsumableArray(param));
       return;
     }
-    set$$1(_this2.audioNode, key, param);
+    set(_this2.audioNode, key, param);
   }, Object.keys(params));
   this.params = params;
   return this;

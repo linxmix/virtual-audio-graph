@@ -5,6 +5,7 @@ export const audioParamProperties = [
   'frequency',
   'gain',
   'tempo',
+  'time',
   'pitch',
   'knee',
   'pan',

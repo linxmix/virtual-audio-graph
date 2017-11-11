@@ -4,9 +4,6 @@ export const audioParamProperties = [
   'detune',
   'frequency',
   'gain',
-  'tempo',
-  'time',
-  'pitch',
   'knee',
   'pan',
   'playbackRate',
@@ -21,6 +18,11 @@ export const audioParamProperties = [
   'filter.frequency', // cutoff
   'delay.delayTime', // delayTime
   'feedbackNode.gain', // feedback
+
+  // soundtouch node properties
+  'time',
+  'tempo',
+  'pitch',
 ]
 
 export const constructorParamsKeys = [

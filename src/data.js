@@ -15,8 +15,12 @@ export const audioParamProperties = [
   'release',
   'threshold',
   'Q',
-  'wet.gain',
-  'filter.frequency',
+
+  // tuna delay node properties
+  'wet.gain', // wet level
+  'filter.frequency', // cutoff
+  'delay.delayTime', // delayTime
+  'feedbackNode.gain', // feedback
 ]
 
 export const constructorParamsKeys = [

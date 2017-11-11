@@ -223,7 +223,13 @@ var connectAudioNodes = (function (virtualGraph) {
   }, Object.keys(virtualGraph));
 });
 
-var audioParamProperties = ['attack', 'delayTime', 'detune', 'frequency', 'gain', 'tempo', 'time', 'pitch', 'knee', 'pan', 'playbackRate', 'ratio', 'reduction', 'release', 'threshold', 'Q', 'wet.gain', 'filter.frequency'];
+var audioParamProperties = ['attack', 'delayTime', 'detune', 'frequency', 'gain', 'tempo', 'time', 'pitch', 'knee', 'pan', 'playbackRate', 'ratio', 'reduction', 'release', 'threshold', 'Q',
+
+// tuna delay node properties
+'wet.gain', // wet level
+'filter.frequency', // cutoff
+'delay.delayTime', // delayTime
+'feedbackNode.gain'];
 
 var constructorParamsKeys = ['maxDelayTime', 'mediaElement', 'mediaStream', 'numberOfOutputs'];
 

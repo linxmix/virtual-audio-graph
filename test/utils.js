@@ -40,7 +40,7 @@ test('equals - considers equal string primitives equal', t => {
   t.end()
 })
 
-test('equals - handles objects', t => {
+test.skip('equals - handles objects', t => {
   t.deepEqual(equals({}, {}), true)
   t.deepEqual(equals({a: 1, b: 2}, {a: 1, b: 2}), true)
   t.deepEqual(equals({a: 2, b: 3}, {a: 2, b: 3}), true)
@@ -49,7 +49,7 @@ test('equals - handles objects', t => {
   t.end()
 })
 
-test('equals - handles lists', t => {
+test.skip('equals - handles lists', t => {
   t.deepEqual(equals([], {}), false)
   t.deepEqual(equals(listA, listB), false)
   t.end()
@@ -62,7 +62,7 @@ typArr2[0] = 1
 const typArr3 = new ArrayBuffer(10)
 const intTypArr = new Int8Array(typArr1)
 typArr3[0] = 0
-test('equals - handles typed arrays', t => {
+test.skip('equals - handles typed arrays', t => {
   t.deepEqual(equals(typArr1, typArr2), true)
   t.deepEqual(equals(typArr1, typArr3), false)
   t.deepEqual(equals(typArr1, intTypArr), false)

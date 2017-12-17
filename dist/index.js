@@ -108,6 +108,9 @@ var toConsumableArray = function (arr) {
   }
 };
 
+// currently putting this at 0 so we replace all arrays and objects
+var MAX_COMPARE_LENGTH = 0;
+
 var capitalize = function capitalize(a) {
   return a.charAt(0).toUpperCase() + a.substring(1);
 };
@@ -116,6 +119,7 @@ var equals = function equals(a, b) {
   var typeA = typeof a === 'undefined' ? 'undefined' : _typeof(a);
   if (typeA !== (typeof b === 'undefined' ? 'undefined' : _typeof(b)) || typeA !== 'object') return false;
   if (Array.isArray(a)) {
+    if (a.length > MAX_COMPARE_LENGTH) return false;
     if (a.length !== b.length) return false;
     for (var i = 0; i < a.length; i++) {
       if (!equals(a[i], b[i])) return false;
@@ -123,8 +127,8 @@ var equals = function equals(a, b) {
   }
   var keysA = Object.keys(a);
   var keysB = Object.keys(b);
+  if (keysA.length > MAX_COMPARE_LENGTH) return false;
   if (keysA.length !== keysB.length) return false;
-  if (keysA.length > 1000) return false;
   for (var _i = 0; _i < keysA.length; _i++) {
     var key = keysA[_i];
     if (!equals(a[key], b[key])) return false;

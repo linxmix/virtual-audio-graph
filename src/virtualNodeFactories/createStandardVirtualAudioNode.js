@@ -61,7 +61,8 @@ const update = function (params = {}) {
     if (this.params && this.params[key] === param) return
     if (audioParamProperties.indexOf(key) !== -1) {
       if (Array.isArray(param)) {
-        if (this.params && equals(param, this.params[key], {strict: true})) {
+        if ((param[0] !== 'setValueCurveAtTime') &&
+          (this.params && equals(param, this.params[key]))) {
           return
         } else {
           get(this.audioNode, key).cancelScheduledValues(0)

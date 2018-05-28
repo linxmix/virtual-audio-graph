@@ -49,7 +49,7 @@ export default ({
           this.virtualNodes[key] = createVirtualAudioNode(audioContext, newNodeParams)
           return
         }
-        if (!equals(paramsOutput, virtualAudioNode.output)) {
+        if (!equals(paramsOutput, virtualAudioNode.output, 0)) {
           virtualAudioNode.disconnect()
           disconnectParents(virtualAudioNode, this.virtualNodes)
           virtualAudioNode.output = paramsOutput

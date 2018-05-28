@@ -109,29 +109,31 @@ var toConsumableArray = function (arr) {
 };
 
 // currently putting this at 0 so we replace all arrays and objects
-var MAX_COMPARE_LENGTH = 0;
+var DEFAULT_MAX_COMPARE_LENGTH = 5;
 
 var capitalize = function capitalize(a) {
   return a.charAt(0).toUpperCase() + a.substring(1);
 };
 var equals = function equals(a, b) {
+  var maxLength = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : DEFAULT_MAX_COMPARE_LENGTH;
+
   if (a === b) return true;
   var typeA = typeof a === 'undefined' ? 'undefined' : _typeof(a);
   if (typeA !== (typeof b === 'undefined' ? 'undefined' : _typeof(b)) || typeA !== 'object') return false;
   if (Array.isArray(a)) {
-    if (a.length > MAX_COMPARE_LENGTH) return false;
+    if (a.length > maxLength) return false;
     if (a.length !== b.length) return false;
     for (var i = 0; i < a.length; i++) {
-      if (!equals(a[i], b[i])) return false;
+      if (!equals(a[i], b[i], maxLength)) return false;
     }return true;
   }
   var keysA = Object.keys(a);
   var keysB = Object.keys(b);
-  if (keysA.length > MAX_COMPARE_LENGTH) return false;
+  if (keysA.length > maxLength) return false;
   if (keysA.length !== keysB.length) return false;
   for (var _i = 0; _i < keysA.length; _i++) {
     var key = keysA[_i];
-    if (!equals(a[key], b[key])) return false;
+    if (!equals(a[key], b[key], maxLength)) return false;
   }
   return true;
 };
@@ -320,7 +322,7 @@ var update = function update() {
     if (_this2.params && _this2.params[key] === param) return;
     if (audioParamProperties.indexOf(key) !== -1) {
       if (Array.isArray(param)) {
-        if (_this2.params && equals(param, _this2.params[key], { strict: true })) {
+        if (param[0] !== 'setValueCurveAtTime' && _this2.params && equals(param, _this2.params[key])) {
           return;
         } else {
           get(_this2.audioNode, key).cancelScheduledValues(0);
@@ -513,7 +515,7 @@ var index = (function () {
           _this.virtualNodes[key] = createVirtualAudioNode(audioContext, newNodeParams);
           return;
         }
-        if (!equals(paramsOutput, virtualAudioNode.output)) {
+        if (!equals(paramsOutput, virtualAudioNode.output, 0)) {
           virtualAudioNode.disconnect();
           disconnectParents(virtualAudioNode, _this.virtualNodes);
           virtualAudioNode.output = paramsOutput;
